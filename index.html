@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>수열의 극한 시각화 프로그램</title>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/12.4.2/math.min.js"></script>
+
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        font-family: Arial, "Malgun Gothic", sans-serif;
+        background: #f4f6f9;
+        color: #222;
+    }
+
+    .container {
+        width: 95%;
+        max-width: 1200px;
+        margin: 30px auto;
+    }
+
+    h1 {
+        text-align: center;
+        margin-bottom: 10px;
+    }
+
+    .subtitle {
+        text-align: center;
+        color: #666;
+        margin-bottom: 25px;
+    }
+
+    .main {
+        display: grid;
+        grid-template-columns: 330px 1fr;
+        gap: 20px;
+    }
+
+    .panel, .graph-panel, .result {
+        background: white;
+        border-radius: 15px;
+        padding: 20px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    }
+
+    .panel h2 {
+        margin-top: 0;
+    }
+
+    label {
+        display: block;
+        font-weight: bold;
+        margin-top: 18px;
+        margin-bottom: 7px;
+    }
+
+    input {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        font-size: 16px;
+    }
+
+    button {
+        width: 100%;
+        margin-top: 22px;
+        padding: 13px;
+        border: none;
+        border-radius: 8px;
+        background: #2563eb;
+        color: white;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background: #1d4ed8;
+    }
+
+    .examples {
+        margin-top: 20px;
+        padding: 12px;
+        background: #f1f5f9;
+        border-radius: 8px;
+        font-size: 14px;
+        line-height: 1.8;
+    }
+
+    .graph-panel {
+        min-height: 500px;
+    }
+
+    .chart-container {
+        position: relative;
+        height: 430px;
+    }
+
+    .result {
+        margin-top: 20px;
+    }
+
+    .result h2 {
+        margin-top: 0;
+    }
+
+    #status {
+        font-size: 22px;
+        font-weight: bold;
+        margin: 10px 0;
+    }
+
+    #limit {
+        font-size: 20px;
+        font-weight: bold;
+    }
+
+    .convergent {
+        color: #15803d;
+    }
+
+    .divergent {
+        color: #dc2626;
+    }
+
+    .unknown {
+        color: #d97706;
+    }
+
+    .formula {
+        background: #f8fafc;
+        padding: 12px;
+        border-radius: 8px;
+        margin-top: 10px;
+        font-family: monospace;
+    }
+
+    @media (max-width: 800px) {
+        .main {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>수열의 극한 시각화 프로그램</h1>
+
+    <p class="subtitle">
+        수열의 식을 입력하면 항을 계산하고 그래프와 극한값을 확인할 수 있습니다.
+    </p>
+
+    <div class="main">
+
+        <!-- 입력 패널 -->
+        <div class="panel">
+
+            <h2>수열 입력</h2>
+
+            <label for="sequence">
+                수열식 aₙ =
+            </label>
+
+            <input
+                id="sequence"
+                type="text"
+                value="1/n"
+                placeholder="예: 1/n"
+            >
+
+            <label for="startN">
+                시작 n값
+            </label>
+
+            <input
+                id="startN"
+                type="number"
+                value="1"
+                min="1"
+            >
+
+            <label for="termCount">
+                항의 개수
+            </label>
+
+            <input
+                id="termCount"
+                type="number"
+                value="100"
+                min="2"
+                max="10000"
+            >
+
+            <button onclick="calculateSequence()">
+                수열 계산하기
+            </button>
+
+            <div class="examples">
+                <strong>입력 예시</strong><br>
+                1/n<br>
+                n/(n+1)<br>
+                1/n^2<br>
+                (-1)^n<br>
+                2^n<br>
+                sin(n)/n<br>
+                (n+1)/(2*n)
+            </div>
+
+        </div>
+
+
+        <!-- 그래프 -->
+        <div class="graph-panel">
+
+            <h2>수열 그래프</h2>
+
+            <div class="chart-container">
+                <canvas id="sequenceChart"></canvas>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- 결과 -->
+    <div class="result">
+
+        <h2>판정 결과</h2>
+
+        <div class="formula">
+            입력한 수열: <span id="formulaText">1/n</span>
+        </div>
+
+        <p id="status" class="unknown">
+            계산 결과가 여기에 표시됩니다.
+        </p>
+
+        <p>
+            추정 극한값:
+            <span id="limit">-</span>
+        </p>
+
+        <p>
+            마지막 항:
+            <span id="lastTerm">-</span>
+        </p>
+
+        <p>
+            마지막 두 항의 차이:
+            <span id="difference">-</span>
+        </p>
+
+    </div>
+
+</div>
+
+
+<script>
+
+let chart = null;
+
+
+/*
+    수열 계산 함수
+*/
+function calculateSequence() {
+
+    const expression =
+        document.getElementById("sequence").value.trim();
+
+    const startN =
+        parseInt(document.getElementById("startN").value);
+
+    const termCount =
+        parseInt(document.getElementById("termCount").value);
+
+
+    if (!expression) {
+        alert("수열식을 입력해주세요.");
+        return;
+    }
+
+    if (startN < 1 || termCount < 2) {
+        alert("n값과 항의 개수를 올바르게 입력해주세요.");
+        return;
+    }
+
+
+    document.getElementById("formulaText").textContent =
+        "aₙ = " + expression;
+
+
+    const nValues = [];
+    const terms = [];
+
+
+    /*
+        수열의 각 항 계산
+    */
+
+    for (let i = 0; i < termCount; i++) {
+
+        const n = startN + i;
+
+        try {
+
+            const value = math.evaluate(
+                expression,
+                { n: n }
+            );
+
+            if (
+                typeof value !== "number" ||
+                !Number.isFinite(value)
+            ) {
+                terms.push(null);
+            } else {
+                terms.push(value);
+            }
+
+            nValues.push(n);
+
+        } catch (error) {
+
+            alert(
+                "수열식을 계산할 수 없습니다.\n\n" +
+                "예: 1/n, n/(n+1), (-1)^n"
+            );
+
+            return;
+        }
+    }
+
+
+    /*
+        그래프 생성
+    */
+
+    drawChart(nValues, terms);
+
+
+    /*
+        극한 판정
+    */
+
+    analyzeLimit(terms);
+
+}
+
+
+/*
+    그래프 그리기
+*/
+
+function drawChart(nValues, terms) {
+
+    const ctx =
+        document.getElementById("sequenceChart")
+        .getContext("2d");
+
+
+    if (chart !== null) {
+        chart.destroy();
+    }
+
+
+    chart = new Chart(ctx, {
+
+        type: "line",
+
+        data: {
+
+            labels: nValues,
+
+            datasets: [
+
+                {
+                    label: "aₙ",
+                    data: terms,
+                    borderWidth: 2,
+                    pointRadius: 2,
+                    tension: 0.1
+                }
+
+            ]
+
+        },
+
+        options: {
+
+            responsive: true,
+
+            maintainAspectRatio: false,
+
+            scales: {
+
+                x: {
+
+                    title: {
+                        display: true,
+                        text: "n"
+                    }
+
+                },
+
+                y: {
+
+                    title: {
+                        display: true,
+                        text: "aₙ"
+                    }
+
+                }
+
+            },
+
+            plugins: {
+
+                legend: {
+                    display: true
+                }
+
+            }
+
+        }
+
+    });
+
+}
+
+
+/*
+    극한 분석
+*/
+
+function analyzeLimit(terms) {
+
+    const validTerms =
+        terms.filter(
+            value =>
+                value !== null &&
+                Number.isFinite(value)
+        );
+
+
+    if (validTerms.length < 10) {
+
+        showResult(
+            "판정 불가",
+            null,
+            null,
+            null,
+            "unknown"
+        );
+
+        return;
+    }
+
+
+    /*
+        마지막 20%의 항을 이용하여 분석
+    */
+
+    const checkCount =
+        Math.min(
+            20,
+            Math.floor(validTerms.length * 0.2)
+        );
+
+
+    const recent =
+        validTerms.slice(-checkCount);
+
+
+    /*
+        마지막 항
+    */
+
+    const last =
+        validTerms[validTerms.length - 1];
+
+
+    /*
+        마지막 두 항의 차이
+    */
+
+    const previous =
+        validTerms[validTerms.length - 2];
+
+    const difference =
+        Math.abs(last - previous);
+
+
+    /*
+        최근 항들의 평균
+    */
+
+    const average =
+        recent.reduce(
+            (sum, value) => sum + value,
+            0
+        ) / recent.length;
+
+
+    /*
+        최근 항들의 최대/최소
+    */
+
+    const max =
+        Math.max(...recent);
+
+    const min =
+        Math.min(...recent);
+
+
+    const range =
+        Math.abs(max - min);
+
+
+    /*
+        수렴 판정 기준
+
+        1. 최근 항들의 범위가 작고
+        2. 마지막 항의 변화량도 작으면
+           수렴한다고 판단
+    */
+
+    const tolerance =
+        Math.max(
+            0.000001,
+            Math.abs(average) * 0.0001
+        );
+
+
+    if (
+        range < tolerance * 10 &&
+        difference < tolerance
+    ) {
+
+        showResult(
+            "이 수열은 수렴하는 것으로 판단됩니다.",
+            average,
+            last,
+            difference,
+            "convergent"
+        );
+
+    }
+
+    /*
+        값이 매우 크게 증가하면 발산
+    */
+
+    else if (
+        Math.abs(last) > 1e10
+    ) {
+
+        showResult(
+            "이 수열은 발산하는 것으로 판단됩니다.",
+            null,
+            last,
+            difference,
+            "divergent"
+        );
+
+    }
+
+    /*
+        최근 항들이 계속 증가하거나 감소하는 경우
+    */
+
+    else {
+
+        const firstRecent =
+            recent[0];
+
+        const lastRecent =
+            recent[recent.length - 1];
+
+
+        const change =
+            Math.abs(lastRecent - firstRecent);
+
+
+        /*
+            변화가 충분히 크면
+            아직 수렴하지 않았다고 판단
+        */
+
+        if (
+            change > Math.max(
+                0.01,
+                Math.abs(average) * 0.01
+            )
+        ) {
+
+            showResult(
+                "이 수열은 발산하거나 아직 수렴하지 않은 것으로 판단됩니다.",
+                null,
+                last,
+                difference,
+                "divergent"
+            );
+
+        } else {
+
+            showResult(
+                "수렴 가능성이 있지만 더 많은 항의 계산이 필요합니다.",
+                average,
+                last,
+                difference,
+                "unknown"
+            );
+
+        }
+
+    }
+
+}
+
+
+/*
+    결과 출력
+*/
+
+function showResult(
+    status,
+    limit,
+    last,
+    difference,
+    className
+) {
+
+    const statusElement =
+        document.getElementById("status");
+
+    statusElement.textContent =
+        status;
+
+    statusElement.className =
+        className;
+
+
+    if (limit !== null) {
+
+        document.getElementById("limit")
+            .textContent =
+            formatNumber(limit);
+
+    } else {
+
+        document.getElementById("limit")
+            .textContent =
+            "∞ 또는 존재하지 않음";
+
+    }
+
+
+    if (last !== null) {
+
+        document.getElementById("lastTerm")
+            .textContent =
+            formatNumber(last);
+
+    }
+
+
+    if (difference !== null) {
+
+        document.getElementById("difference")
+            .textContent =
+            formatNumber(difference);
+
+    }
+
+}
+
+
+/*
+    숫자 표시 형식
+*/
+
+function formatNumber(value) {
+
+    if (Math.abs(value) < 0.000001) {
+        return value.toExponential(4);
+    }
+
+    if (Math.abs(value) > 1000000) {
+        return value.toExponential(4);
+    }
+
+    return value.toFixed(8)
+        .replace(/0+$/, "")
+        .replace(/\.$/, "");
+
+}
+
+
+/*
+    처음 실행할 때 기본 수열 계산
+*/
+
+window.onload = function() {
+
+    calculateSequence();
+
+};
+
+</script>
+
+</body>
+</html>
