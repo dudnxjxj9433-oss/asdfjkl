@@ -11,10 +11,6 @@
 
 <style>
 
-/* =========================
-   기본 설정
-========================= */
-
 * {
     box-sizing: border-box;
 }
@@ -23,7 +19,6 @@ html, body {
     margin: 0;
     padding: 0;
     width: 100%;
-    min-height: 100%;
 }
 
 body {
@@ -41,22 +36,12 @@ body {
     overflow-x: hidden;
 }
 
-
-/* =========================
-   전체 컨테이너
-========================= */
-
 .container {
     width: 94%;
     max-width: 1250px;
 
     margin: 30px auto;
 }
-
-
-/* =========================
-   제목
-========================= */
 
 h1 {
     text-align: center;
@@ -73,15 +58,8 @@ h1 {
 
     color: #666;
 
-    font-size: 16px;
-
-    margin: 0 0 28px 0;
+    margin-bottom: 28px;
 }
-
-
-/* =========================
-   메인 영역
-========================= */
 
 .main {
     display: grid;
@@ -91,14 +69,7 @@ h1 {
         minmax(0, 1fr);
 
     gap: 22px;
-
-    align-items: stretch;
 }
-
-
-/* =========================
-   카드
-========================= */
 
 .panel,
 .graph-panel,
@@ -110,37 +81,19 @@ h1 {
     padding: 24px;
 
     box-shadow:
-        0 4px 15px rgba(0, 0, 0, 0.08);
+        0 4px 15px rgba(0,0,0,0.08);
 }
-
-
-/* =========================
-   입력 패널
-========================= */
 
 .panel h2,
 .graph-panel h2,
 .result h2 {
     margin-top: 0;
 
-    margin-bottom: 18px;
-
     font-size: 21px;
-
-    white-space: nowrap;
 }
-
-
-/* =========================
-   입력 제목
-========================= */
 
 label {
     display: block;
-
-    width: 100%;
-
-    font-size: 15px;
 
     font-weight: bold;
 
@@ -150,11 +103,6 @@ label {
 
     white-space: nowrap;
 }
-
-
-/* =========================
-   입력창
-========================= */
 
 input {
     display: block;
@@ -169,16 +117,7 @@ input {
 
     border-radius: 8px;
 
-    background: white;
-
-    font-family:
-        Arial,
-        "Malgun Gothic",
-        sans-serif;
-
     font-size: 16px;
-
-    color: #222;
 
     outline: none;
 }
@@ -187,24 +126,15 @@ input:focus {
     border-color: #2563eb;
 
     box-shadow:
-        0 0 0 2px rgba(37, 99, 235, 0.12);
+        0 0 0 2px rgba(37,99,235,0.12);
 }
 
-
-/* =========================
-   버튼
-========================= */
-
 button {
-    display: block;
-
     width: 100%;
 
     height: 48px;
 
     margin-top: 22px;
-
-    padding: 0 15px;
 
     border: none;
 
@@ -214,32 +144,18 @@ button {
 
     color: white;
 
-    font-family:
-        "Malgun Gothic",
-        Arial,
-        sans-serif;
-
     font-size: 16px;
 
     font-weight: bold;
 
     cursor: pointer;
-
-    white-space: nowrap;
 }
 
 button:hover {
     background: #1d4ed8;
 }
 
-
-/* =========================
-   예시 박스
-========================= */
-
 .examples {
-    width: 100%;
-
     margin-top: 20px;
 
     padding: 14px;
@@ -251,23 +167,6 @@ button:hover {
     font-size: 14px;
 
     line-height: 1.8;
-
-    overflow-wrap: break-word;
-}
-
-.examples strong {
-    display: block;
-
-    margin-bottom: 4px;
-}
-
-
-/* =========================
-   그래프 영역
-========================= */
-
-.graph-panel {
-    min-width: 0;
 }
 
 .chart-container {
@@ -276,13 +175,9 @@ button:hover {
     width: 100%;
 
     height: 450px;
-
-    min-width: 0;
 }
 
 #sequenceChart {
-    display: block;
-
     width: 100% !important;
 
     height: 100% !important;
@@ -295,60 +190,62 @@ button:hover {
 
 .result {
     margin-top: 22px;
-
-    width: 100%;
-}
-
-.result p {
-    margin: 12px 0;
-
-    font-size: 16px;
-
-    white-space: normal;
-
-    word-break: keep-all;
 }
 
 
-/* =========================
-   수열식 표시
-========================= */
+/* 수렴값 강조 박스 */
 
-.formula {
-    width: 100%;
+.limit-box {
 
-    padding: 14px;
+    margin-top: 20px;
 
-    background: #f8fafc;
+    padding: 22px;
 
-    border-radius: 8px;
+    border-radius: 12px;
+
+    background: #eff6ff;
+
+    border: 2px solid #3b82f6;
+
+    text-align: center;
+}
+
+
+.limit-title {
+
+    font-size: 17px;
+
+    font-weight: bold;
+
+    color: #1d4ed8;
+
+    margin-bottom: 8px;
+}
+
+
+.limit-value {
+
+    font-size: 36px;
+
+    font-weight: bold;
+
+    color: #1d4ed8;
 
     font-family:
         "Courier New",
         monospace;
-
-    font-size: 16px;
-
-    overflow-x: auto;
-
-    white-space: nowrap;
 }
 
 
-/* =========================
-   판정 결과
-========================= */
+/* 판정 결과 */
 
 #status {
+
     font-size: 21px;
 
     font-weight: bold;
 
-    margin-top: 18px;
-
-    margin-bottom: 18px;
-
-    white-space: normal;
+    margin-top: 20px;
 
     word-break: keep-all;
 }
@@ -366,67 +263,59 @@ button:hover {
 }
 
 
-/* =========================
-   결과 숫자
-========================= */
+.formula {
 
-#limit,
-#lastTerm,
-#difference {
-    font-weight: bold;
+    margin-top: 15px;
+
+    padding: 14px;
+
+    background: #f8fafc;
+
+    border-radius: 8px;
 
     font-family:
         "Courier New",
         monospace;
 
-    word-break: normal;
+    overflow-x: auto;
+
+    white-space: nowrap;
+}
+
+
+.result p {
+
+    font-size: 16px;
+
+    margin: 12px 0;
+}
+
+
+#lastTerm,
+#difference {
+
+    font-family:
+        "Courier New",
+        monospace;
+
+    font-weight: bold;
 }
 
 
 /* =========================
-   태블릿
-========================= */
-
-@media (max-width: 900px) {
-
-    .main {
-        grid-template-columns: 280px minmax(0, 1fr);
-    }
-
-    h1 {
-        font-size: 28px;
-    }
-
-    .chart-container {
-        height: 400px;
-    }
-}
-
-
-/* =========================
-   휴대폰
+   모바일
 ========================= */
 
 @media (max-width: 700px) {
 
     .container {
         width: 94%;
-
-        margin: 20px auto;
     }
 
     h1 {
-        font-size: 24px;
+        font-size: 25px;
 
         white-space: normal;
-
-        word-break: keep-all;
-    }
-
-    .subtitle {
-        font-size: 14px;
-
-        word-break: keep-all;
     }
 
     .main {
@@ -435,23 +324,14 @@ button:hover {
         flex-direction: column;
     }
 
-    .panel,
-    .graph-panel,
-    .result {
-        width: 100%;
-
-        padding: 20px;
-    }
-
     .chart-container {
         height: 350px;
     }
 
-    .panel h2,
-    .graph-panel h2,
-    .result h2 {
-        white-space: normal;
+    .limit-value {
+        font-size: 30px;
     }
+
 }
 
 </style>
@@ -464,168 +344,174 @@ button:hover {
 <div class="container">
 
 
-    <!-- =========================
-         제목
-    ========================== -->
-
-    <h1>
-        수열의 극한 시각화 프로그램
-    </h1>
-
-    <p class="subtitle">
-        수열의 식을 입력하면 항을 계산하고 그래프와 극한값을 확인할 수 있습니다.
-    </p>
+<h1>
+    수열의 극한 시각화 프로그램
+</h1>
 
 
-    <!-- =========================
-         입력 + 그래프
-    ========================== -->
-
-    <div class="main">
+<p class="subtitle">
+    수열의 식을 입력하면 항을 계산하고 그래프와 극한값을 확인할 수 있습니다.
+</p>
 
 
-        <!-- 입력 -->
-        <div class="panel">
-
-            <h2>수열 입력</h2>
+<div class="main">
 
 
-            <label for="sequence">
-                수열식 aₙ =
-            </label>
+<!-- =========================
+     입력 영역
+========================= -->
 
-            <input
-                id="sequence"
-                type="text"
-                value="1/n"
-                placeholder="예: 1/n"
-            >
+<div class="panel">
+
+    <h2>수열 입력</h2>
 
 
-            <label for="startN">
-                시작 n값
-            </label>
+    <label>
+        수열식 aₙ =
+    </label>
 
-            <input
-                id="startN"
-                type="number"
-                value="1"
-                min="1"
-            >
-
-
-            <label for="termCount">
-                항의 개수
-            </label>
-
-            <input
-                id="termCount"
-                type="number"
-                value="100"
-                min="2"
-                max="10000"
-            >
+    <input
+        id="sequence"
+        type="text"
+        value="n/(n+1)"
+        placeholder="예: 1/n"
+    >
 
 
-            <button onclick="calculateSequence()">
-                수열 계산하기
-            </button>
+    <label>
+        시작 n값
+    </label>
+
+    <input
+        id="startN"
+        type="number"
+        value="1"
+        min="1"
+    >
 
 
-            <div class="examples">
+    <label>
+        항의 개수
+    </label>
 
-                <strong>입력 예시</strong>
-
-                1/n<br>
-
-                n/(n+1)<br>
-
-                1/n^2<br>
-
-                (-1)^n<br>
-
-                2^n<br>
-
-                sin(n)/n<br>
-
-                (n+1)/(2*n)
-
-            </div>
-
-        </div>
+    <input
+        id="termCount"
+        type="number"
+        value="100"
+        min="2"
+        max="10000"
+    >
 
 
-        <!-- 그래프 -->
-        <div class="graph-panel">
-
-            <h2>수열 그래프</h2>
-
-            <div class="chart-container">
-
-                <canvas id="sequenceChart"></canvas>
-
-            </div>
-
-        </div>
-
-    </div>
+    <button onclick="calculateSequence()">
+        수열 계산하기
+    </button>
 
 
-    <!-- =========================
-         결과
-    ========================== -->
+    <div class="examples">
 
-    <div class="result">
+        <strong>입력 예시</strong>
 
-        <h2>판정 결과</h2>
+        1/n<br>
 
+        n/(n+1)<br>
 
-        <div class="formula">
+        1/n^2<br>
 
-            입력한 수열:
-            <span id="formulaText">
-                aₙ = 1/n
-            </span>
+        (-1)^n<br>
 
-        </div>
+        2^n<br>
 
+        sin(n)/n<br>
 
-        <p
-            id="status"
-            class="unknown"
-        >
-            계산 결과가 여기에 표시됩니다.
-        </p>
-
-
-        <p>
-            추정 극한값:
-            <span id="limit">-</span>
-        </p>
-
-
-        <p>
-            마지막 항:
-            <span id="lastTerm">-</span>
-        </p>
-
-
-        <p>
-            마지막 두 항의 차이:
-            <span id="difference">-</span>
-        </p>
+        (n+1)/(2*n)
 
     </div>
 
 </div>
 
 
+<!-- =========================
+     그래프
+========================= -->
+
+<div class="graph-panel">
+
+    <h2>수열 그래프</h2>
+
+    <div class="chart-container">
+
+        <canvas id="sequenceChart"></canvas>
+
+    </div>
+
+</div>
+
+
+</div>
+
+
+<!-- =========================
+     결과
+========================= -->
+
+<div class="result">
+
+    <h2>판정 결과</h2>
+
+
+    <div class="formula">
+
+        입력한 수열:
+        <span id="formulaText">
+            aₙ = n/(n+1)
+        </span>
+
+    </div>
+
+
+    <div id="status">
+        계산 결과가 여기에 표시됩니다.
+    </div>
+
+
+    <!-- 수렴값 강조 -->
+
+    <div class="limit-box">
+
+        <div class="limit-title">
+            수렴하는 값 (극한값)
+        </div>
+
+        <div
+            id="limit"
+            class="limit-value"
+        >
+            -
+        </div>
+
+    </div>
+
+
+    <p>
+        마지막 항:
+        <span id="lastTerm">-</span>
+    </p>
+
+
+    <p>
+        마지막 두 항의 차이:
+        <span id="difference">-</span>
+    </p>
+
+</div>
+
+
+</div>
+
+
 <script>
 
-
-/* =========================
-   전역 변수
-========================= */
 
 let chart = null;
 
@@ -683,7 +569,7 @@ function calculateSequence() {
         termCount < 2
     ) {
 
-        alert("항의 개수를 2개 이상 입력해주세요.");
+        alert("항의 개수는 2개 이상이어야 합니다.");
 
         return;
     }
@@ -700,7 +586,7 @@ function calculateSequence() {
     const terms = [];
 
 
-    /* 수열 계산 */
+    /* 항 계산 */
 
     for (
         let i = 0;
@@ -754,131 +640,19 @@ function calculateSequence() {
     }
 
 
+    /* 극한 분석 */
+
+    const result =
+        analyzeLimit(terms);
+
+
     /* 그래프 */
 
     drawChart(
         nValues,
-        terms
+        terms,
+        result
     );
-
-
-    /* 극한 분석 */
-
-    analyzeLimit(terms);
-
-}
-
-
-/* =========================
-   그래프
-========================= */
-
-function drawChart(
-    nValues,
-    terms
-) {
-
-    const canvas =
-        document
-        .getElementById("sequenceChart");
-
-
-    const ctx =
-        canvas.getContext("2d");
-
-
-    if (chart !== null) {
-
-        chart.destroy();
-
-    }
-
-
-    chart =
-        new Chart(
-            ctx,
-            {
-
-                type: "line",
-
-                data: {
-
-                    labels: nValues,
-
-                    datasets: [
-
-                        {
-
-                            label: "aₙ",
-
-                            data: terms,
-
-                            borderWidth: 2,
-
-                            pointRadius: 2,
-
-                            pointHoverRadius: 5,
-
-                            tension: 0.1
-
-                        }
-
-                    ]
-
-                },
-
-
-                options: {
-
-                    responsive: true,
-
-                    maintainAspectRatio: false,
-
-
-                    scales: {
-
-                        x: {
-
-                            title: {
-
-                                display: true,
-
-                                text: "n"
-
-                            }
-
-                        },
-
-
-                        y: {
-
-                            title: {
-
-                                display: true,
-
-                                text: "aₙ"
-
-                            }
-
-                        }
-
-                    },
-
-
-                    plugins: {
-
-                        legend: {
-
-                            display: true
-
-                        }
-
-                    }
-
-                }
-
-            }
-        );
 
 }
 
@@ -909,7 +683,10 @@ function analyzeLimit(terms) {
             "unknown"
         );
 
-        return;
+        return {
+            convergent: false,
+            limit: null
+        };
     }
 
 
@@ -975,7 +752,9 @@ function analyzeLimit(terms) {
         );
 
 
-    /* 수렴 */
+    /* =========================
+       수렴
+    ========================= */
 
     if (
         range < tolerance * 10 &&
@@ -984,7 +763,7 @@ function analyzeLimit(terms) {
 
         showResult(
 
-            "이 수열은 수렴하는 것으로 판단됩니다.",
+            "✓ 이 수열은 수렴하는 것으로 판단됩니다.",
 
             average,
 
@@ -996,10 +775,21 @@ function analyzeLimit(terms) {
 
         );
 
+
+        return {
+
+            convergent: true,
+
+            limit: average
+
+        };
+
     }
 
 
-    /* 매우 큰 값 */
+    /* =========================
+       매우 큰 값으로 발산
+    ========================= */
 
     else if (
         Math.abs(last) > 1e10
@@ -1007,7 +797,7 @@ function analyzeLimit(terms) {
 
         showResult(
 
-            "이 수열은 발산하는 것으로 판단됩니다.",
+            "✕ 이 수열은 발산하는 것으로 판단됩니다.",
 
             null,
 
@@ -1019,10 +809,21 @@ function analyzeLimit(terms) {
 
         );
 
+
+        return {
+
+            convergent: false,
+
+            limit: null
+
+        };
+
     }
 
 
-    /* 아직 변화가 큰 경우 */
+    /* =========================
+       기타
+    ========================= */
 
     else {
 
@@ -1053,7 +854,7 @@ function analyzeLimit(terms) {
 
             showResult(
 
-                "이 수열은 발산하거나 아직 수렴하지 않은 것으로 판단됩니다.",
+                "✕ 이 수열은 발산하거나 아직 수렴하지 않은 것으로 판단됩니다.",
 
                 null,
 
@@ -1065,23 +866,40 @@ function analyzeLimit(terms) {
 
             );
 
-        } else {
 
-            showResult(
+            return {
 
-                "수렴 가능성이 있지만 더 많은 항의 계산이 필요합니다.",
+                convergent: false,
 
-                average,
+                limit: null
 
-                last,
-
-                difference,
-
-                "unknown"
-
-            );
+            };
 
         }
+
+
+        showResult(
+
+            "△ 수렴 가능성이 있지만 더 많은 항의 계산이 필요합니다.",
+
+            average,
+
+            last,
+
+            difference,
+
+            "unknown"
+
+        );
+
+
+        return {
+
+            convergent: false,
+
+            limit: null
+
+        };
 
     }
 
@@ -1089,7 +907,179 @@ function analyzeLimit(terms) {
 
 
 /* =========================
-   결과 출력
+   그래프
+========================= */
+
+function drawChart(
+    nValues,
+    terms,
+    result
+) {
+
+    const canvas =
+        document
+        .getElementById(
+            "sequenceChart"
+        );
+
+
+    const ctx =
+        canvas.getContext("2d");
+
+
+    if (chart !== null) {
+
+        chart.destroy();
+
+    }
+
+
+    const datasets = [
+
+        {
+
+            label: "수열 aₙ",
+
+            data: terms,
+
+            borderWidth: 2,
+
+            pointRadius: 2,
+
+            pointHoverRadius: 5,
+
+            tension: 0.1
+
+        }
+
+    ];
+
+
+    /* =========================
+       극한값 표시선
+    ========================= */
+
+    if (
+        result.convergent &&
+        result.limit !== null
+    ) {
+
+        datasets.push({
+
+            label:
+                "수렴값 = " +
+                formatNumber(result.limit),
+
+            data:
+                nValues.map(
+                    () => result.limit
+                ),
+
+            borderWidth: 3,
+
+            borderDash: [8, 6],
+
+            pointRadius: 0,
+
+            tension: 0
+
+        });
+
+    }
+
+
+    chart =
+        new Chart(
+
+            ctx,
+
+            {
+
+                type: "line",
+
+                data: {
+
+                    labels: nValues,
+
+                    datasets: datasets
+
+                },
+
+
+                options: {
+
+                    responsive: true,
+
+                    maintainAspectRatio: false,
+
+
+                    interaction: {
+
+                        intersect: false,
+
+                        mode: "index"
+
+                    },
+
+
+                    scales: {
+
+                        x: {
+
+                            title: {
+
+                                display: true,
+
+                                text: "n"
+
+                            }
+
+                        },
+
+
+                        y: {
+
+                            title: {
+
+                                display: true,
+
+                                text: "aₙ"
+
+                            }
+
+                        }
+
+                    },
+
+
+                    plugins: {
+
+                        legend: {
+
+                            display: true
+
+                        },
+
+
+                        tooltip: {
+
+                            enabled: true
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+        );
+
+}
+
+
+/* =========================
+   결과 표시
 ========================= */
 
 function showResult(
@@ -1113,6 +1103,10 @@ function showResult(
         className;
 
 
+    /* =========================
+       수렴값 강조
+    ========================= */
+
     if (
         limit !== null
     ) {
@@ -1127,7 +1121,7 @@ function showResult(
         document
         .getElementById("limit")
         .textContent =
-            "∞ 또는 존재하지 않음";
+            "존재하지 않음";
 
     }
 
@@ -1168,7 +1162,7 @@ function formatNumber(value) {
         Math.abs(value) < 0.000001
     ) {
 
-        return value.toExponential(4);
+        return value.toExponential(5);
 
     }
 
@@ -1177,7 +1171,7 @@ function formatNumber(value) {
         Math.abs(value) > 1000000
     ) {
 
-        return value.toExponential(4);
+        return value.toExponential(5);
 
     }
 
@@ -1191,7 +1185,7 @@ function formatNumber(value) {
 
 
 /* =========================
-   처음 실행
+   최초 실행
 ========================= */
 
 window.onload =
@@ -1200,7 +1194,6 @@ window.onload =
         calculateSequence();
 
     };
-
 
 </script>
 
